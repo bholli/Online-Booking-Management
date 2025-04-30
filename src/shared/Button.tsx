@@ -1,8 +1,8 @@
 "use client";
 
-import { Route } from "@/routers/types";
-import Link from "next/link";
 import React, { ButtonHTMLAttributes, FC } from "react";
+import Link from "next/link";
+import twFocusClass from "@/utils/twFocusClass";
 
 export interface ButtonProps {
   className?: string;
@@ -13,7 +13,7 @@ export interface ButtonProps {
   loading?: boolean;
   disabled?: boolean;
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
-  href?: Route<string>;
+  href?: string;
   targetBlank?: boolean;
   onClick?: () => void;
   children?: React.ReactNode;
@@ -32,7 +32,9 @@ const Button: FC<ButtonProps> = ({
   loading,
   onClick = () => {},
 }) => {
-  const CLASSES = `nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} `;
+  const CLASSES =
+    `nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} ` +
+    twFocusClass(true);
 
   const _renderLoading = () => {
     return (
@@ -61,15 +63,16 @@ const Button: FC<ButtonProps> = ({
 
   if (!!href) {
     return (
-      <Link
+      <a
         href={href}
         target={targetBlank ? "_blank" : undefined}
-        className={`${CLASSES} `}
-        onClick={onClick}
+        className={`${CLASSES}`}
         rel={targetBlank ? "noopener noreferrer" : undefined}
+        onClick={onClick}
       >
+        {loading && _renderLoading()}
         {children || `This is Link`}
-      </Link>
+      </a>
     );
   }
 

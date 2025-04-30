@@ -1,77 +1,62 @@
-import { StarIcon } from "@heroicons/react/24/solid";
 import React, { FC } from "react";
 import Avatar from "@/shared/Avatar";
 
-interface CommentListingDataType {
-  name: string;
-  avatar?: string;
-  date: string;
-  comment: string;
-  starPoint: number;
-}
-
 export interface CommentListingProps {
   className?: string;
-  data?: CommentListingDataType;
-  hasListingTitle?: boolean;
 }
 
-const DEMO_DATA: CommentListingDataType = {
-  name: "Cody Fisher",
-  date: "May 20, 2021",
-  comment:
-    "There’s no stopping the tech giant. Apple now opens its 100th store in China.There’s no stopping the tech giant.",
-  starPoint: 5,
-};
+// Sample comments data
+const DEMO_COMMENTS = [
+  {
+    id: "1",
+    author: "Jane Cooper",
+    date: "May 20, 2023",
+    content: "This clinic was incredibly helpful for my long COVID symptoms. The staff was knowledgeable and compassionate. They provided a comprehensive treatment plan that has significantly improved my quality of life.",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+  },
+  {
+    id: "2",
+    author: "Michael Johnson",
+    date: "April 15, 2023",
+    content: "I've been struggling with fatigue and brain fog for months after COVID. This clinic has specialists who understand these symptoms and don't dismiss them. They're helping me navigate my recovery journey.",
+    avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+  },
+];
 
-const CommentListing: FC<CommentListingProps> = ({
-  className = "",
-  data = DEMO_DATA,
-  hasListingTitle,
-}) => {
+const CommentListing: FC<CommentListingProps> = ({ className = "" }) => {
   return (
-    <div
-      className={`nc-CommentListing flex space-x-4 ${className}`}
-      data-nc-id="CommentListing"
-    >
-      <div className="pt-0.5">
-        <Avatar
-          sizeClass="h-10 w-10 text-lg"
-          radius="rounded-full"
-          userName={data.name}
-          imgUrl={data.avatar}
-        />
-      </div>
-      <div className="flex-grow">
-        <div className="flex justify-between space-x-3">
-          <div className="flex flex-col">
-            <div className="text-sm font-semibold">
-              <span>{data.name}</span>
-              {hasListingTitle && (
-                <>
-                  <span className="text-neutral-500 dark:text-neutral-400 font-normal">
-                    {` review in `}
-                  </span>
-                  <a href="/">The Lounge & Bar</a>
-                </>
-              )}
+    <div className={`nc-CommentListing ${className}`}>
+      <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200 flex items-center">
+        <span>{DEMO_COMMENTS.length} comments</span>
+      </h3>
+      <ul className="space-y-5 mt-5">
+        {DEMO_COMMENTS.map((item) => (
+          <li
+            key={item.id}
+            className="nc-CommentCard flex"
+          >
+            <Avatar
+              sizeClass="h-10 w-10 sm:h-11 sm:w-11"
+              imgUrl={item.avatar}
+              userName={item.author}
+            />
+            <div className="flex-1 ml-3 space-y-1">
+              <div className="flex items-center">
+                <span className="text-neutral-900 dark:text-neutral-200 font-semibold">
+                  {item.author}
+                </span>
+                <span className="mx-2">·</span>
+                <span className="text-neutral-500 dark:text-neutral-400 text-sm">
+                  {item.date}
+                </span>
+              </div>
+              <p className="text-neutral-700 dark:text-neutral-300">
+                {item.content}
+              </p>
             </div>
-            <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
-              {data.date}
-            </span>
-          </div>
-          <div className="flex text-yellow-500">
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-            <StarIcon className="w-4 h-4" />
-          </div>
-        </div>
-        <span className="block mt-3 text-neutral-6000 dark:text-neutral-300">
-          {data.comment}
-        </span>
-      </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

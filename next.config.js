@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    appDir: true,
-    typedRoutes: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -32,6 +28,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    domains: ['images.pexels.com'],
   },
 };
 
