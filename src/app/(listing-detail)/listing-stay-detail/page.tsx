@@ -15,12 +15,13 @@ import ButtonClose from "@/shared/ButtonClose";
 import Input from "@/shared/Input";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useParams } from "next/navigation";
 import { Amenities_demos, PHOTOS } from "./constant";
 import StayDatesRangeInput from "./StayDatesRangeInput";
 import GuestsInput from "./GuestsInput";
 import SectionDateRange from "../SectionDateRange";
 import { Route } from "next";
+import Link from "next/link";
 
 export interface ListingStayDetailPageProps {}
 
@@ -31,6 +32,9 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
   const thisPathname = usePathname();
   const router = useRouter();
+  const params = useParams();
+  const id = params.id;
+  // slug is optional: params.slug (could be undefined or an array)
 
   function closeModalAmenities() {
     setIsOpenModalAmenities(false);
@@ -175,14 +179,22 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
   const renderMotalAmenities = () => {
     return (
-      <Transition appear show={isOpenModalAmenities} as={Fragment}>
+      <Transition
+        as={Fragment}
+        enter="ease-out duration-300"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="ease-in duration-200"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
         <Dialog
           as="div"
           className="fixed inset-0 z-50 overflow-y-auto"
           onClose={closeModalAmenities}
         >
           <div className="min-h-screen px-4 text-center">
-            <Transition.Child
+            <Transition
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
@@ -191,8 +203,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40" />
-            </Transition.Child>
+              <div className="fixed inset-0 bg-black bg-opacity-40" />
+            </Transition>
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
@@ -201,7 +213,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
             >
               &#8203;
             </span>
-            <Transition.Child
+            <Transition
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 scale-95"
@@ -238,7 +250,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
                   </div>
                 </div>
               </div>
-            </Transition.Child>
+            </Transition>
           </div>
         </Dialog>
       </Transition>

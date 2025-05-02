@@ -16,7 +16,11 @@ function customColors(cssVar) {
 }
 
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/styles/__theme_custom.css",
+    "./public/index.html",
+  ],
   darkMode: "class",
   theme: {
     container: {
@@ -26,10 +30,11 @@ module.exports = {
         "2xl": "128px",
       },
     },
-    // fontFamily: {
-    //   display: ["var(--font-display)", ...defaultTheme.fontFamily.sans],
-    //   body: ["var(--font-body)", ...defaultTheme.fontFamily.sans],
-    // },
+    fontFamily: {
+      sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+      body: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+      display: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
+    },
 
     extend: {
       colors: {

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { LONG_COVID_CLINICS } from "@/data/longCovidClinics";
-import ClinicCardH from "@/components/ClinicCardH";
+import ClinicCardGrid from "@/components/ClinicCardGrid";
 import SectionHeroSearchForm from "@/components/SectionHeroSearchForm";
 
 export default function ClinicsPage() {
@@ -12,9 +12,8 @@ export default function ClinicsPage() {
   const radiusParam = searchParams.get("radius");
   const treatmentParams = searchParams.getAll("treatment");
   
-  const [searchTerm, setSearchTerm] = useState(locationParam || "");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedTreatments, setSelectedTreatments] = useState<string[]>(treatmentParams || []);
+  const searchTerm = locationParam || "";
+  const selectedTreatments = treatmentParams || [];
   
   // Get unique states for filter dropdown
   const states = Array.from(new Set(LONG_COVID_CLINICS.map(clinic => clinic.state))).sort();
@@ -27,23 +26,11 @@ export default function ClinicsPage() {
       clinic.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
       clinic.zipCode.includes(searchTerm);
     
-    const matchesState = selectedState === "" || clinic.state === selectedState;
-    
-    const matchesTreatment = selectedTreatments.length === 0 || 
+    const matchesState = selectedTreatments.length === 0 || 
       selectedTreatments.some(treatment => clinic.treatmentTypes.includes(treatment));
     
-    return matchesSearch && matchesState && matchesTreatment;
+    return matchesSearch && matchesState;
   });
-  
-  useEffect(() => {
-    if (locationParam) {
-      setSearchTerm(locationParam);
-    }
-    
-    if (treatmentParams.length > 0) {
-      setSelectedTreatments(treatmentParams);
-    }
-  }, [locationParam, treatmentParams]);
   
   return (
     <div className="container mx-auto px-4 py-16">
@@ -56,10 +43,10 @@ export default function ClinicsPage() {
       </div>
       
       {/* Clinics Grid - Full width without filters sidebar */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
         {filteredClinics.length > 0 ? (
           filteredClinics.map(clinic => (
-            <ClinicCardH key={clinic.id} clinic={clinic} />
+            <ClinicCardGrid key={clinic.id} clinic={clinic} />
           ))
         ) : (
           <div className="col-span-full text-center py-12">

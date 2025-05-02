@@ -11,7 +11,7 @@ function PageHome() {
       <BgGlassmorphism />
 
       {/* HERO SECTION WITH SEARCH */}
-      <div className="relative flex items-center justify-center min-h-screen">
+      <div className="relative flex items-center justify-center min-h-screen home-hero-section">
         {/* Hero Background Image */}
         <div className="absolute inset-0 z-0">
           <Image

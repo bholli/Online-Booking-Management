@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useState, Fragment, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ButtonPrimary from "@/components/ButtonPrimary";
 import { LONG_COVID_CLINICS } from "@/data/longCovidClinics";
 import { MapPinIcon, AdjustmentsHorizontalIcon, MagnifyingGlassIcon, ClockIcon } from "@heroicons/react/24/outline";
@@ -71,23 +71,35 @@ const radiusOptions = [
 
 // Recent searches for demo
 const recentSearches = [
-  "Boston, MA",
-  "New York, NY",
-  "San Francisco, CA",
-  "Chicago, IL"
+  "Louisiana",
+  "New York",
+  "Texas",
+  "California", 
+  "Alabama"
 ];
 
 const SectionHeroSearchForm: FC<SectionHeroSearchFormProps> = ({
   className = "",
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [location, setLocation] = useState("");
   const [selectedTreatments, setSelectedTreatments] = useState<string[]>([]);
-  const [selectedRadius, setSelectedRadius] = useState("100 miles");
+  const [selectedRadius, setSelectedRadius] = useState("Any distance");
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   
   const locationInputRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!searchParams) return;
+    const locationParam = searchParams.get("location") || "";
+    const radiusParam = searchParams.get("radius") || "Any distance";
+    const treatmentParams = searchParams.getAll("treatment") || [];
+    setLocation(locationParam);
+    setSelectedRadius(radiusParam);
+    setSelectedTreatments(treatmentParams);
+  }, [searchParams]);
   
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
