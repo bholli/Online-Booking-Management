@@ -41,7 +41,7 @@ const ClinicCard: FC<ClinicCardProps> = ({ className = "", data }) => {
     <div
       className={`nc-PropertyCardH group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-xl overflow-hidden hover:shadow-xl transition-shadow ${className}`}
     >
-      <Link href={`/clinic-details/${id}`} className="flex flex-col sm:flex-row sm:items-center">
+      <Link href={`/clinic/${id}`} className="flex flex-col sm:flex-row sm:items-center">
         <div className="relative w-full sm:w-40 h-48 sm:h-full flex-shrink-0 overflow-hidden">
           <Image
             fill

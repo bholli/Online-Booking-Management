@@ -75,6 +75,14 @@ module.exports = {
           900: customColors("--c-neutral-900"),
         },
       },
+      height: {
+        'screen-header': 'calc(100vh - var(--header-height, 89px))',
+      },
+      zIndex: {
+        '100': '100',
+        '200': '200',
+        '9999': '9999',
+      },
     },
   },
   variants: {

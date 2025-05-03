@@ -1,0 +1,23 @@
+:root {
+  /* Default header height for mobile */
+  --header-height: 70px;
+}
+
+/* Tablet header height */
+@media (min-width: 768px) {
+  :root {
+    --header-height: 80px;
+  }
+}
+
+/* Desktop header height */
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 89px;
+  }
+}
+
+/* Ensure dropdowns appear above footer */
+[id^="headlessui-popover-panel"] {
+  z-index: 9999 !important;
+} 

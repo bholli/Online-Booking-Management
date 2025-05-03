@@ -29,7 +29,7 @@ const ClinicCardH: FC<ClinicCardHProps> = ({ className = "", clinic }) => {
     <div
       className={`nc-ClinicCardH group relative bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-700 rounded-3xl overflow-hidden ${className}`}
     >
-      <Link href={`/clinic-details/${id}`} className="absolute inset-0"></Link>
+      <Link href={`/clinic/${id}`} className="absolute inset-0"></Link>
       <div className="h-full w-full flex flex-col sm:flex-row sm:items-center">
         {/* Image */}
         <div className="flex-shrink-0 p-3 w-full sm:w-64">

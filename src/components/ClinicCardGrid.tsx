@@ -15,7 +15,7 @@ export interface ClinicCardGridProps {
 const ClinicCardGrid: React.FC<ClinicCardGridProps> = ({ clinic }) => {
   return (
     <Link
-      href={`/clinic-details/${clinic.id}`}
+      href={`/clinic/${clinic.id}`}
       className="block h-full group"
       tabIndex={0}
     >

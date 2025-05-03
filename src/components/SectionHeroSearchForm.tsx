@@ -155,7 +155,14 @@ const SectionHeroSearchForm: FC<SectionHeroSearchFormProps> = ({
   return (
     <div className={`nc-SectionHeroSearchForm ${className}`}>
       <div className="max-w-6xl mx-auto">
-        <form className="w-full relative xl:mt-8 flex flex-col lg:flex-row lg:items-center rounded-3xl lg:rounded-full shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800 divide-y divide-neutral-200 dark:divide-neutral-700 lg:divide-y-0" onSubmit={handleSearch}>
+        <form 
+          className="w-full relative xl:mt-8 flex flex-col lg:flex-row lg:items-center rounded-3xl lg:rounded-full bg-white dark:bg-neutral-800 divide-y divide-neutral-200 dark:divide-neutral-700 lg:divide-y-0" 
+          style={{ 
+            border: '2px solid #d2d5db',
+            boxShadow: 'none',
+          }}
+          onSubmit={handleSearch}
+        >
           <div className="relative flex flex-[1.5]" ref={locationRef}>
             <div 
               onClick={() => setShowLocationDropdown(true)}
@@ -354,6 +361,17 @@ const SectionHeroSearchForm: FC<SectionHeroSearchFormProps> = ({
           </div>
         </form>
       </div>
+      <style jsx global>{`
+        /* Add this to ensure dropdowns appear above footer */
+        .nc-SectionHeroSearchForm [id^="headlessui-popover-panel"] {
+          z-index: 9999 !important;
+        }
+        
+        /* Dark mode border styling */
+        .dark .nc-SectionHeroSearchForm form {
+          border-color: #9ca3af !important;
+        }
+      `}</style>
     </div>
   );
 };

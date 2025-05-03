@@ -1,6 +1,7 @@
 @use "./_dates_picker" as *;
 @use "./header" as *;
 
+@import "variables.css";
 @import "./__theme_colors.scss";
 @import "./__theme_font.scss";
 @import "./_header.scss";
